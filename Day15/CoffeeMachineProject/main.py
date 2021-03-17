@@ -53,6 +53,14 @@ def give_report(resources):
     print(f"Total profit: ${money_in_machine}")
 
 
+def input_money():
+    pay = int(input("How many quarters (0.25$) do you want to input?")) * 0.25
+    pay += int(input("How many quarters (0.10$) do you want to input?")) * 0.1
+    pay += int(input("How many quarters (0.05$) do you want to input?")) * 0.05
+    pay += int(input("How many quarters (0.01$) do you want to input?")) * 0.01
+    return pay
+
+
 machine_state = 'ON'
 money_in_machine = 0
 while machine_state == 'ON':
@@ -64,25 +72,21 @@ while machine_state == 'ON':
 
     # check if resources sufficient
     if resources_sufficient(user_choice) == 'yes':
-        costs = MENU[user_choice]['cost']
+        beverage = MENU[user_choice]
+        costs = beverage['cost']
         print(f'The {user_choice} costs {costs} $.')
-        quarters = int(input("How many quarters (0.25$) do you want to input?"))
-        dimes = int(input("How many quarters (0.10$) do you want to input?"))
-        nickles = int(input("How many quarters (0.05$) do you want to input?"))
-        pennies = int(input("How many quarters (0.01$) do you want to input?"))
-        total = quarters * 0.25 + dimes * 0.10 + nickles * 0.05 + pennies * 0.01
+        total = input_money()
         if total >= costs:
-            #if money suficient, output change
+            # if money suficient, output change
             change = round(total - costs, 3)
             print(f"Your change is {change}$")
-            #calculate resources after production of beverage
-            resources['water'] = resources['water'] - MENU[user_choice]['ingredients']['water']
-            resources['milk'] = resources['milk'] - MENU[user_choice]['ingredients']['milk']
-            resources['coffee'] = resources['coffee'] - MENU[user_choice]['ingredients']['coffee']
+            # calculate resources after production of beverage
+            for item in beverage['ingredients']:
+                resources[item] -= beverage['ingredients'][item]
             money_in_machine += costs
             resources['Money'] = money_in_machine
             give_report(resources)
-            print("Here is your latte. Enjoy :)")
+            print(f"Here is your {user_choice}. Enjoy :)")
 
         else:
             print("Sorry that's not enough money. Money refunded.")
