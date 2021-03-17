@@ -31,6 +31,7 @@ resources = {
     "coffee": 100,
 }
 
+
 import sys
 
 
@@ -46,8 +47,10 @@ def resources_sufficient(user_choice):
 
 
 def give_report(resources):
-    for key, value in resources.items():
-        print(key, ' : ', value)
+    print(f"Water:  {resources['water']} ml")
+    print(f"milk: {resources['milk']} ml")
+    print(f"coffee:  {resources['coffee']} g")
+    print(f"Total profit: ${money_in_machine}")
 
 
 machine_state = 'ON'
