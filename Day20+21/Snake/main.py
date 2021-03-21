@@ -8,11 +8,14 @@ screen = Screen()
 screen.setup(width=600, height=600)
 screen.bgcolor("black")
 screen.title("Snake Game")
+# screen that asks user if he is ready to start the game
+ready = screen.textinput("Are you ready?", "Type Yes/No")
 screen.tracer(0)
 
 snake = Snake()
 food = Food()
 scoreboard = Scoreboard()
+game_is_on = False
 
 screen.listen()
 screen.onkey(snake.up, "Up")
@@ -20,7 +23,8 @@ screen.onkey(snake.down, "Down")
 screen.onkey(snake.left, "Left")
 screen.onkey(snake.right, "Right")
 
-game_is_on = True
+if ready == 'Yes':
+    game_is_on = True
 while game_is_on:
     screen.update()
     time.sleep(0.1)
@@ -31,16 +35,14 @@ while game_is_on:
         scoreboard.increase_score()
         snake.increase_snake()
 
-    #detect collison with wall
-    if snake.head.xcor() > 285 or snake.head.xcor() <-285 or snake.head.ycor() > 285 or snake.head.ycor() < -285:
+    # detect collision with wall
+    if snake.head.xcor() > 285 or snake.head.xcor() < -285 or snake.head.ycor() > 285 or snake.head.ycor() < -285:
         game_is_on = False
         scoreboard.game_over()
 
-    #detect collision with the tail
-    for part in snake.snake_parts:
-        if part == snake.head:
-            pass
-        elif snake.head.distance(part) < 4:
+    # detect collision with the tail
+    for part in snake.snake_parts[1:]:
+        if snake.head.distance(part) < 10:
             game_is_on = False
             scoreboard.game_over()
 

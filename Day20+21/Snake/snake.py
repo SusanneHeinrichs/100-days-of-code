@@ -49,7 +49,7 @@ class Snake:
         self.snake_parts.append(snake_part)
 
     def increase_snake(self):
-        #add new segment to snake
+        # add new segment to snake
         self.add_segment(self.snake_parts[-1].position())
 
 
