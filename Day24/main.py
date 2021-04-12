@@ -5,10 +5,12 @@
 
 with open("Input/Names/invited_names.txt") as names_file:
     for name in names_file:
-        output = open("Output/ReadyToSend/out_"+ name +".txt", "wt")
         start = open("Input/Letters/starting_letter.txt", "rt")
+        output = open("Output/ReadyToSend/out_"+ name +".txt", "wt")
+        #go through lines in starting_letter and replace name placeholder with name from list 
         for line in start:
 	        output.write(line.replace('[name]', name.replace('\n', '')))
-#close input and output files
-start.close()
+        #close start and output files
+        start.close()
+        output.close()
 
