@@ -27,7 +27,7 @@ for index, row in birthdays.iterrows():
         letter = letter.replace('[NAME]',row['name'])
 
         my_email = os.environ.get("OWN_EMAIL")
-        passw = "XXXXXXX"
+        passw = "XXXXXXXX"
 
         with smtplib.SMTP("smtp.gmail.com") as connection:
             connection.starttls()
