@@ -12,6 +12,7 @@ import datetime as dt
 import pandas as pd
 import random
 import smtplib
+import os
 
 birthdays = pd.read_csv("/Users/suse/dev/100-days-of-code/Day32/birthday-wisher-extrahard-start/birthdays.csv")
 print(birthdays)
@@ -25,7 +26,7 @@ for index, row in birthdays.iterrows():
             letter = file.read()
         letter = letter.replace('[NAME]',row['name'])
 
-        my_email = "susanne100DaysOfCode@gmail.com"
+        my_email = os.environ.get("OWN_EMAIL")
         passw = "XXXXXXX"
 
         with smtplib.SMTP("smtp.gmail.com") as connection:
