@@ -132,3 +132,5 @@ dmypy.json
 .pyre/
 .DS_Store
 .gitignore
+Day36/stock-news-normal-start/.project_config
+.DS_Store
